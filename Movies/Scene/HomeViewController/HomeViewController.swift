@@ -121,6 +121,7 @@ class HomeViewController: UIViewController {
     @objc private func cancelButtonTapped() {
         buttonView.isHidden = false
         cancelButton.isHidden = true
+        searchView.clearSearchText()
     }
     
     // MARK: Contraints
@@ -322,19 +323,20 @@ extension HomeViewController: FilterdViewDelegate {
 
 // MARK: - FilterdViewDelegate
 extension HomeViewController: SearchViewDelegate {
-    func searchViewDidCancel() {
-        searchView.clearSearchText()
-        cancelButtonTapped()
+    func textFieldDidBeginEditing() {        
+        buttonView.isHidden = true
+        cancelButton.isHidden = false
+
+        if buttonView.isSelected {
+            buttonView.isSelected = false
+            movieGenreCollectioView.isHidden = true
+            setupTitleLabelConstraints()
+        }
     }
     
-    func searchViewTextDidChange(text: String?) {
-        if let text = text, !text.isEmpty {
-            cancelButton.isHidden = false
-            buttonView.isHidden = true
-        } else {
-            cancelButton.isHidden = true
-            buttonView.isHidden = false
-        }
+    func textFieldDidEndEditing() {
+        buttonView.isHidden = false
+        cancelButton.isHidden = true
     }
 }
 

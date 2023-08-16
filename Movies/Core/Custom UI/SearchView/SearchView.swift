@@ -7,10 +7,9 @@
 
 import UIKit
 
-// MARK: SearchViewDelegate
 protocol SearchViewDelegate: AnyObject {
-    func searchViewDidCancel()
-    func searchViewTextDidChange(text: String?)
+    func textFieldDidBeginEditing()
+    func textFieldDidEndEditing()
 }
 
 final class SearchView: UIView {
@@ -22,11 +21,11 @@ final class SearchView: UIView {
         return imageView
     }()
     
-    private let textField: UITextField = {
+    private lazy var textField: UITextField = {
         let textField = UITextField()
         textField.placeholder = Constants.TextField.text
         textField.textColor = .white
-        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        textField.delegate = self
         return textField
     }()
     
@@ -56,10 +55,6 @@ final class SearchView: UIView {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
-    }
-    
-    @objc private func textFieldDidChange(_ textField: UITextField) {
-        delegate?.searchViewTextDidChange(text: textField.text)
     }
     
     private func setUpFunc() {
@@ -96,12 +91,15 @@ final class SearchView: UIView {
 }
 
 // MARK: - SearchViewDelegate
-extension SearchView: SearchViewDelegate {
-    func searchViewDidCancel() {
-        delegate?.searchViewDidCancel()
-    }
-    
-    func searchViewTextDidChange(text: String?) {
-        delegate?.searchViewTextDidChange(text: textField.text)
-    }
+extension SearchView: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+          delegate?.textFieldDidBeginEditing()
+        
+      }
+
+      func textFieldDidEndEditing(_ textField: UITextField) {
+          textField.text = ""
+          delegate?.textFieldDidEndEditing()
+      }
 }
+
