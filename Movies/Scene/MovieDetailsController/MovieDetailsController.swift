@@ -24,7 +24,7 @@ class MovieDetailsViewController: UIViewController {
             state: .normal)
     }()
     
-    private lazy var movieTitle: UILabel = {
+    private lazy var movieTitle: UIView = {
         makeLabel(
             text: Constants.MovieTitle.text,
             textFont: Constants.MovieTitle.textFont,
@@ -38,7 +38,7 @@ class MovieDetailsViewController: UIViewController {
     
     private lazy var favoriteButton: UIButton = {
         let button = makeButtonSelected(
-            contentmode: .scaleToFill,
+            contentmode: .scaleAspectFill,
             image: Constants.FavoriteButton.image,
             state: .normal,
             selectedImage: Constants.FavoriteButton.selectedImage,
@@ -48,7 +48,7 @@ class MovieDetailsViewController: UIViewController {
         return button
     }()
     
-    private lazy var ratingLabel: UILabel = {
+    private lazy var ratingLabel: UIView = {
         makeLabel(
             text: Constants.RatingLabel.text,
             textFont: Constants.RatingLabel.textFont,
@@ -57,10 +57,12 @@ class MovieDetailsViewController: UIViewController {
             textAlignment: .center,
             cornerRadius: Constants.RatingLabel.cornerRadius,
             numberOfLines: Constants.RatingLabel.numberOfLines,
-            maskBounds: true)
+            maskBounds: true,
+            padding:  Constants.RatingLabel.padding
+        )
     }()
     
-    private lazy var genreLabel: UILabel = {
+    private lazy var genreLabel: UIView = {
         makeLabel(
             text: Constants.GenreLabel.text,
             textFont: Constants.GenreLabel.textFont,
@@ -69,10 +71,12 @@ class MovieDetailsViewController: UIViewController {
             textAlignment: .center,
             cornerRadius: Constants.GenreLabel.cornerRadius,
             numberOfLines: Constants.GenreLabel.numberOfLines,
-            maskBounds: true)
+            maskBounds: true,
+            padding:  Constants.GenreLabel.padding
+        )
     }()
     
-    private lazy var movieDurationLabel: UILabel = {
+    private lazy var movieDurationLabel: UIView = {
         makeLabel(
             text: Constants.MovieDurationLabel.text,
             textFont: Constants.MovieDurationLabel.textFont,
@@ -80,10 +84,13 @@ class MovieDetailsViewController: UIViewController {
             backGroundColor: Constants.MovieDurationLabel.backGroundColor,
             textAlignment: .center,
             cornerRadius: Constants.MovieDurationLabel.cornerRadius,
-            numberOfLines: Constants.MovieDurationLabel.numberOfLines, maskBounds: true)
+            numberOfLines: Constants.MovieDurationLabel.numberOfLines,
+            maskBounds: true,
+            padding:  Constants.MovieDurationLabel.padding
+        )
     }()
     
-    private lazy var movieYearLabel: UILabel = {
+    private lazy var movieYearLabel: UIView = {
         makeLabel(
             text: Constants.MovieYearLabel.text,
             textFont: Constants.MovieYearLabel.textFont,
@@ -91,10 +98,13 @@ class MovieDetailsViewController: UIViewController {
             backGroundColor: Constants.MovieYearLabel.backGroundColor,
             textAlignment: .center,
             cornerRadius: Constants.MovieYearLabel.cornerRadius,
-            numberOfLines: Constants.MovieYearLabel.numberOfLines, maskBounds: true)
+            numberOfLines: Constants.MovieYearLabel.numberOfLines,
+            maskBounds: true,
+            padding: Constants.MovieYearLabel.padding
+        )
     }()
     
-    private lazy var aboutMovieLabel: UILabel = {
+    private lazy var aboutMovieLabel: UIView = {
         makeLabel(
             text: Constants.AboutMovieLabel.text,
             textFont: Constants.AboutMovieLabel.textFont,
@@ -105,7 +115,7 @@ class MovieDetailsViewController: UIViewController {
             numberOfLines: Constants.AboutMovieLabel.numberOfLines, maskBounds: true)
     }()
     
-    private lazy var descriptionLabel: UILabel = {
+    private lazy var descriptionLabel: UIView = {
         makeLabel(
             text: Constants.DescriptionLabel.text,
             textFont: Constants.DescriptionLabel.textFont,
@@ -117,7 +127,7 @@ class MovieDetailsViewController: UIViewController {
         
     }()
     
-    private lazy var stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .fill
@@ -150,21 +160,42 @@ class MovieDetailsViewController: UIViewController {
         textAlignment: NSTextAlignment,
         cornerRadius: CGFloat,
         numberOfLines: Int,
-        maskBounds: Bool
-    )
-    -> UILabel {
+        maskBounds: Bool,
+        padding: UIEdgeInsets = .zero
+    ) -> UIView {
+        let labelContainer = UIView()
+        labelContainer.backgroundColor = backGroundColor
+        labelContainer.layer.cornerRadius = cornerRadius
+        labelContainer.layer.masksToBounds = maskBounds
+        
         let label = UILabel()
         label.text = text
         label.font = textFont
         label.textColor = textColor
-        label.backgroundColor = backGroundColor
         label.textAlignment = textAlignment
         label.numberOfLines = numberOfLines
-        label.layer.cornerRadius = cornerRadius
-        label.layer.masksToBounds = maskBounds
         
-        return label
+        labelContainer.addSubview(label)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(
+                equalTo: labelContainer.topAnchor,
+                constant: padding.top),
+            label.leadingAnchor.constraint(
+                equalTo: labelContainer.leadingAnchor,
+                constant: padding.left),
+            label.bottomAnchor.constraint(
+                equalTo: labelContainer.bottomAnchor,
+                constant: -padding.bottom),
+            label.trailingAnchor.constraint(
+                equalTo: labelContainer.trailingAnchor,
+                constant: -padding.right)
+        ])
+        
+        return labelContainer
     }
+
     
     private func makeButton(
         contentmode: UIView.ContentMode,
@@ -237,10 +268,10 @@ class MovieDetailsViewController: UIViewController {
     
     
     private func setUpNavigationBar() {
-        self.title = "Details"
+        self.title = Constants.NavigationBar.text
         
         let titleAttributes = [
-            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20),
+            NSAttributedString.Key.font: Constants.NavigationBar.textfont,
             NSAttributedString.Key.foregroundColor: UIColor.white
         ]
         self.navigationController?.navigationBar.titleTextAttributes = titleAttributes
@@ -249,7 +280,7 @@ class MovieDetailsViewController: UIViewController {
             let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: navigationBar.frame.width, height: navigationBar.frame.height))
             titleLabel.text = self.title
             titleLabel.textColor = UIColor.white
-            titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
+            titleLabel.font = Constants.NavigationBar.textfont
             titleLabel.textAlignment = .center
             navigationItem.titleView = titleLabel
         }

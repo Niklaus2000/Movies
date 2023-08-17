@@ -20,7 +20,11 @@ extension SearchView {
         enum TextField {
             static let text = "Search"
             static let fontSize: UIFont = UIFont.systemFont(ofSize: 14)
-            static let textColor: UIColor = UIColor(red: 0.6471, green: 0.6471, blue: 0.6471, alpha: 1.0)
+            static let textColor: UIColor = UIColor(
+                red: 165/255,
+                green: 165/255,
+                blue: 165/255,
+                alpha: 1)
             static let top: CGFloat = 9
             static let leading: CGFloat = 6
         }

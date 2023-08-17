@@ -11,7 +11,7 @@ extension MovieDetailsViewController {
     enum Constants {
         
         enum MoviePoster {
-            static let image = UIImage(named: "movie_image1")
+            static let image = UIImage(named: "movie_detail_image")
             static let height: CGFloat = 380
         }
         
@@ -22,10 +22,10 @@ extension MovieDetailsViewController {
         }
         
         enum FavoriteButton {
-            static let image = UIImage(named: "favorite_image")
-            static let selectedImage = UIImage(named: "selected_favorite_image")
-            static let height: CGFloat = 50
-            static let width: CGFloat = 50
+            static let image = UIImage(named: "unChecked_detail_image")
+            static let selectedImage = UIImage(named: "checked_detail_image")
+            static let height: CGFloat = 29
+            static let width: CGFloat = 26
             static let trailing: CGFloat = -16
         }
         
@@ -43,6 +43,7 @@ extension MovieDetailsViewController {
             static let textFont: UIFont = .systemFont(ofSize: 14)
             static let cornerRadius: CGFloat = 15
             static let numberOfLines = 0
+            static let padding = UIEdgeInsets(top: 4, left: 12, bottom: 4, right: 12)
             static let backGroundColor = UIColor(
                 red: 0.1098,
                 green: 0.1098,
@@ -55,6 +56,7 @@ extension MovieDetailsViewController {
             static let textFont: UIFont = .systemFont(ofSize: 14)
             static let cornerRadius: CGFloat = 15
             static let numberOfLines = 0
+            static let padding = UIEdgeInsets(top: 4, left: 12, bottom: 4, right: 12)
             static let backGroundColor = UIColor(
                 red: 0.1098,
                 green: 0.1098,
@@ -67,6 +69,7 @@ extension MovieDetailsViewController {
             static let textFont: UIFont = .systemFont(ofSize: 14)
             static let cornerRadius: CGFloat = 15
             static let numberOfLines: Int = 0
+            static let padding = UIEdgeInsets(top: 4, left: 12, bottom: 4, right: 12)
             static let backGroundColor = UIColor(
                 red: 0.1098,
                 green: 0.1098,
@@ -79,6 +82,7 @@ extension MovieDetailsViewController {
             static let textFont: UIFont = .systemFont(ofSize: 14)
             static let cornerRadius: CGFloat = 15
             static let numberOfLines = 0
+            static let padding = UIEdgeInsets(top: 4, left: 12, bottom: 4, right: 12)
             static let backGroundColor = UIColor(
                 red: 0.1098,
                 green: 0.1098,
@@ -91,11 +95,7 @@ extension MovieDetailsViewController {
             static let textFont: UIFont = .systemFont(ofSize: 16)
             static let cornerRadius: CGFloat = 0
             static let numberOfLines = 0
-            static let backGroundColor = UIColor(
-                red: 0.1098,
-                green: 0.1098,
-                blue: 0.1098,
-                alpha: 1.0)
+            static let backGroundColor: UIColor = .clear
             static let top: CGFloat = 26
             static let leading: CGFloat = 16
         }
@@ -117,6 +117,11 @@ extension MovieDetailsViewController {
             static let trailing: CGFloat = -16
             static let height: CGFloat = 26
             static let spacing: CGFloat = 8
+        }
+        
+        enum NavigationBar {
+            static let textfont: UIFont = UIFont.boldSystemFont(ofSize: 20)
+            static let text = "Details"
         }
         
     }

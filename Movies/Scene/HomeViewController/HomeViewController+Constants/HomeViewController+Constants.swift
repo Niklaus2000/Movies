@@ -59,7 +59,7 @@ extension HomeViewController {
             static let height: CGFloat = 260
             static let leading: CGFloat = 16
             static let trailing: CGFloat = -16
-            
+            static let top: CGFloat = 16
         }
         
         enum MovieGenreCollectionView {

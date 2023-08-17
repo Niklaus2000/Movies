@@ -7,7 +7,7 @@
 
 import Foundation
 
-let genres = ["action", "adventure", "comedy", "drama", "fantasy", "horror", "musicals", "mystery", "romance", "science fiction", "sports", "thriller", "Western"]
+let genres = ["action", "adventure", "comedy", "drama", "fantasy", "horror", "musicals", "mystery", "romance", "sports", "thriller", "Western"]
 
 let movies: [Movie] = [
     Movie(poster: "movie_image1", name: "In the Tall Grass", genre: "Horror", year: 2019),

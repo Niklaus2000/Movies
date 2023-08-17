@@ -24,7 +24,8 @@ final class SearchView: UIView {
     private lazy var textField: UITextField = {
         let textField = UITextField()
         textField.placeholder = Constants.TextField.text
-        textField.textColor = .white
+        textField.font = Constants.TextField.fontSize
+        textField.textColor = Constants.TextField.textColor
         textField.delegate = self
         return textField
     }()

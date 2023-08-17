@@ -13,7 +13,7 @@ class HomeViewController: UIViewController {
     private var filteredMovies: [Movie] = []
     private var selectedGenre: String?
     private var lastSelectedGenre: String? = nil
-    private var titleLabelTopConstraint: NSLayoutConstraint!
+    private var titleLabelTopConstraint: NSLayoutConstraint?
     
     // MARK: Components
     private lazy var searchView: SearchView = {
@@ -115,7 +115,7 @@ class HomeViewController: UIViewController {
     private func setUpDevaultValues() {
         movieGenreCollectioView.isHidden = true
         cancelButton.isHidden = true
-        titleLabelTopConstraint.constant = Constants.ButtonView.unSelectedFilterTop
+        titleLabelTopConstraint?.constant = Constants.ButtonView.unSelectedFilterTop
     }
     
     @objc private func cancelButtonTapped() {
@@ -170,7 +170,8 @@ class HomeViewController: UIViewController {
     private func setupMoviesCollectionView() {
         NSLayoutConstraint.activate([
             moviesCollectionView.topAnchor.constraint(
-                equalTo: moviesLabelView.bottomAnchor),
+                equalTo: moviesLabelView.bottomAnchor,
+                constant: Constants.MovieCollectionView.top),
             moviesCollectionView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: Constants.MovieCollectionView.leading),
@@ -178,7 +179,7 @@ class HomeViewController: UIViewController {
                 equalTo: view.trailingAnchor,
                 constant: Constants.MovieCollectionView.trailing),
             moviesCollectionView.bottomAnchor.constraint(
-                equalTo: view.bottomAnchor)
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
@@ -203,12 +204,19 @@ class HomeViewController: UIViewController {
             equalTo: searchView.bottomAnchor,
             constant: movieGenreCollectioView.isHidden ? Constants.ButtonView.unSelectedFilterTop : Constants.ButtonView.selectedFilterTop)
         
-        NSLayoutConstraint.activate([
-            titleLabelTopConstraint,
+        var constraints: [NSLayoutConstraint] = []
+        
+        if let titleLabelTopConstraint = titleLabelTopConstraint {
+            constraints.append(titleLabelTopConstraint)
+        }
+        
+        constraints.append(contentsOf: [
             moviesLabelView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: Constants.MoviesLabel.leading),
         ])
+        
+        NSLayoutConstraint.activate(constraints)
     }
 }
 
@@ -243,29 +251,30 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             
             return moviesCollectionViewCell
         }
-        
         return UICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == movieGenreCollectioView {
-            let selectedGenre = genres[indexPath.row]
-            if self.lastSelectedGenre != selectedGenre {
-                self.lastSelectedGenre = selectedGenre
-                self.selectedGenre = selectedGenre
+                let selectedGenre = genres[indexPath.row]
+                
+                // Toggle the isCellSelected property of the selected cell
+                if let cell = collectionView.cellForItem(at: indexPath) as? MovieGenreCollectionViewCell {
+                    cell.isCellSelected.toggle()
+                }
+                
+                if self.lastSelectedGenre != selectedGenre {
+                    self.lastSelectedGenre = selectedGenre
+                    self.selectedGenre = selectedGenre
+                } else {
+                    self.lastSelectedGenre = nil
+                    self.selectedGenre = nil
+                }
                 
                 filterMoviesByGenre()
-                
-                collectionView.reloadData()
-            } else {
-                self.lastSelectedGenre = nil
-                self.selectedGenre = nil
-                
-                filterMoviesByGenre()
-                
                 collectionView.reloadData()
             }
-        }
+        
         
         if collectionView == moviesCollectionView {
             guard collectionView.cellForItem(at: indexPath) is MoviesCollectionViewCell else {
@@ -313,10 +322,10 @@ extension HomeViewController: FilterdViewDelegate {
         switch state {
         case .filtred:
             movieGenreCollectioView.isHidden = true
-            titleLabelTopConstraint.constant = Constants.ButtonView.unSelectedFilterTop
+            titleLabelTopConstraint?.constant = Constants.ButtonView.unSelectedFilterTop
         case .unFiltred:
             movieGenreCollectioView.isHidden = false
-            titleLabelTopConstraint.constant =  Constants.ButtonView.selectedFilterTop
+            titleLabelTopConstraint?.constant = Constants.ButtonView.selectedFilterTop
         }
     }
 }

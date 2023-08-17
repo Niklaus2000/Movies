@@ -21,13 +21,13 @@ extension MoviesCollectionViewCell {
         }
         
         enum MovieNameLabel {
-            static let textSize = UIFont.systemFont(ofSize: 10)
+            static let textSize = UIFont.systemFont(ofSize: 14)
             static let top: CGFloat = 4
             static let leading: CGFloat = 6
         }
         
         enum MovieYearLabel {
-            static let textSize = UIFont.systemFont(ofSize: 10)
+            static let textSize = UIFont.systemFont(ofSize: 12)
             static let leading: CGFloat = 6
         }
         

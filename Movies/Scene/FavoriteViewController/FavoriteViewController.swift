@@ -37,12 +37,12 @@ class FavoriteViewController: UIViewController {
         
     }()
     
-    private var errorStateView: ErrorStateView = {
+    private let errorStateView: ErrorStateView = {
         let view = ErrorStateView()
         return view
     }()
     
-    private var emptyStateView: EmptyStateView = {
+    private let emptyStateView: EmptyStateView = {
         let view = EmptyStateView()
         return view
     }()
@@ -110,7 +110,7 @@ class FavoriteViewController: UIViewController {
                 equalTo: view.trailingAnchor,
                 constant: Constants.MoviesCollectionView.trailing),
             moviesCollectionView.bottomAnchor.constraint(
-                equalTo: view.bottomAnchor)
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     

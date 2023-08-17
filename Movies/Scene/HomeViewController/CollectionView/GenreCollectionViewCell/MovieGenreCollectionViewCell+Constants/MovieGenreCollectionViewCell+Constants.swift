@@ -1,5 +1,5 @@
 //
-//  GenreCollectionViewCell+Constants.swift
+//  MovieGenreCollectionViewCell+Constants.swift
 //  Movie
 //
 //  Created by MacBoobPro on 14.08.23.
@@ -9,14 +9,14 @@ import UIKit
 
 extension MovieGenreCollectionViewCell {
     enum Constants {
-        enum GenreLabelView {
+        enum GenreLabel {
             static let cornerRadius: CGFloat = 12
             static let borderWidth: CGFloat = 1
             static let top: CGFloat = 4
-            static let leading: CGFloat = 6
-            
-            
+            static let leading: CGFloat = 12
+            static let bottom: CGFloat = -4
         }
+        
         enum CellBackGroundColor {
             static let backGroundColor = UIColor(
                 red: 0.9608,
