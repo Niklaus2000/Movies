@@ -15,7 +15,8 @@ extension MoviesCollectionViewCell {
         }
         
         enum FavouriteButton {
-            static let image =  UIImage(named: "favorite_image")
+            static let selectedImage =  UIImage(named: "selected_favorite_image")
+            static let unSelectedImage = UIImage(named: "unSelected_favorite_image")
             static let top: CGFloat = 4
             static let trailing: CGFloat = -4
         }

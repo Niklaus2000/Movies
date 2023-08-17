@@ -19,9 +19,10 @@ class MoviesCollectionViewCell: UICollectionViewCell {
         return image
     }()
     
-    private let favouriteButton: UIButton = {
+    private let favoriteButton: UIButton = {
         let button = UIButton()
-        button.setImage(Constants.FavouriteButton.image, for: .normal)
+        button.setImage(Constants.FavouriteButton.unSelectedImage, for: .normal)
+        button.setImage(Constants.FavouriteButton.selectedImage, for: .selected)
         return button
     }()
     
@@ -84,7 +85,7 @@ class MoviesCollectionViewCell: UICollectionViewCell {
             moviePoster,
             movieNameLabel,
             movieYearLabel,
-            favouriteButton]
+            favoriteButton]
             .forEach {
                 $0.translatesAutoresizingMaskIntoConstraints = false
                 contentView.addSubview($0)
@@ -111,6 +112,10 @@ class MoviesCollectionViewCell: UICollectionViewCell {
         movieNameLabel.text = movie.name
         movieGenreLabel.text = movie.genre
         movieYearLabel.text = String(movie.year)
+    }
+    
+    @objc private func favoriteButtonTap() {
+        favoriteButton.isSelected.toggle()
     }
     
     // MARK: Constraints
@@ -170,13 +175,15 @@ class MoviesCollectionViewCell: UICollectionViewCell {
     
     private func setupFavouriteButtonConstraints() {
         NSLayoutConstraint.activate([
-            favouriteButton.topAnchor.constraint(
+            favoriteButton.topAnchor.constraint(
                 equalTo: moviePoster.bottomAnchor,
                 constant: Constants.FavouriteButton.top),
-            favouriteButton.trailingAnchor.constraint(
+            favoriteButton.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
                 constant: Constants.FavouriteButton.trailing)
         ])
+        
+        favoriteButton.addTarget(self, action: #selector(favoriteButtonTap), for: .touchUpInside)
     }
     
     private func setupGenreLabelContainerViewConstraints() {
