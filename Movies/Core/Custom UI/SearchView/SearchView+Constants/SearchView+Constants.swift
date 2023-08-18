@@ -11,12 +11,12 @@ import UIKit
 
 extension SearchView {
     enum Constants {
-        enum MainView {
-            static let top: CGFloat = 19
-            static let leading: CGFloat = 16
-            static let height: CGFloat = 36
-        }
-        
+//        enum MainView {
+//            static let top: CGFloat = 19
+//            static let leading: CGFloat = 16
+//            static let height: CGFloat = 36
+//        }
+//
         enum TextField {
             static let text = "Search"
             static let fontSize: UIFont = UIFont.systemFont(ofSize: 14)

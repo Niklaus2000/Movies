@@ -22,13 +22,13 @@ extension FavoriteCollectionViewCell {
         }
         
         enum MovieNameLabel {
-            static let textSize = UIFont.systemFont(ofSize: 10)
+            static let textSize = UIFont.systemFont(ofSize: 14)
             static let top: CGFloat = 4
             static let leading: CGFloat = 6
         }
         
         enum MovieYearLabel {
-            static let textSize = UIFont.systemFont(ofSize: 10)
+            static let textSize = UIFont.systemFont(ofSize: 12)
             static let leading: CGFloat = 6
         }
         
@@ -46,10 +46,10 @@ extension FavoriteCollectionViewCell {
                 green: 0.7725,
                 blue: 0.0941,
                 alpha: 1.0)
-            static let cornnerRadius: CGFloat = 12
+            static let cornnerRadius: CGFloat = 10
             static let top: CGFloat = 10
             static let trailing: CGFloat = -10
-            static let width: CGFloat = -20
+            static let height: CGFloat = 21
         }
     }
 }

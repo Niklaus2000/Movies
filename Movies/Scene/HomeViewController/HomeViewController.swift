@@ -79,6 +79,7 @@ class HomeViewController: UIViewController {
         setUp()
         setUpFunc()
         setUpDevaultValues()
+        hideKeyboard()
     }
     
     // MARK: Methods
@@ -256,24 +257,24 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == movieGenreCollectioView {
-                let selectedGenre = genres[indexPath.row]
-                
-                // Toggle the isCellSelected property of the selected cell
-                if let cell = collectionView.cellForItem(at: indexPath) as? MovieGenreCollectionViewCell {
-                    cell.isCellSelected.toggle()
-                }
-                
-                if self.lastSelectedGenre != selectedGenre {
-                    self.lastSelectedGenre = selectedGenre
-                    self.selectedGenre = selectedGenre
-                } else {
-                    self.lastSelectedGenre = nil
-                    self.selectedGenre = nil
-                }
-                
-                filterMoviesByGenre()
-                collectionView.reloadData()
+            let selectedGenre = genres[indexPath.row]
+            
+            
+            if let cell = collectionView.cellForItem(at: indexPath) as? MovieGenreCollectionViewCell {
+                cell.isCellSelected.toggle()
             }
+            
+            if self.lastSelectedGenre != selectedGenre {
+                self.lastSelectedGenre = selectedGenre
+                self.selectedGenre = selectedGenre
+            } else {
+                self.lastSelectedGenre = nil
+                self.selectedGenre = nil
+            }
+            
+            filterMoviesByGenre()
+            collectionView.reloadData()
+        }
         
         
         if collectionView == moviesCollectionView {
@@ -296,25 +297,27 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
 }
 
-// MARK: - UICollectionViewDelegateFlowLayout
+
+
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == movieGenreCollectioView {
-            let genre = genres[indexPath.row]
-            let labelWidth = genre.size(withAttributes: [
-                .font: Constants.MoviesLabel.textSize])
-                .width + Constants.MoviesLabel.leading
-            return CGSize(
-                width: labelWidth,
-                height: Constants.MoviesLabel.height)
-        } else if collectionView == moviesCollectionView {
+        switch collectionView {
+        case movieGenreCollectioView:
+            let genres = genres[indexPath.row]
+            let cell = MovieGenreCollectionViewCell()
+            cell.configure(with: genres)
+            return cell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        case moviesCollectionView:
             return CGSize(
                 width: Constants.MovieCollectionView.width,
                 height: Constants.MovieCollectionView.height)
+        default:
+            return CGSize.zero
         }
-        return CGSize()
     }
 }
+
+
 
 // MARK: - FilterdViewDelegate
 extension HomeViewController: FilterdViewDelegate {
@@ -332,10 +335,10 @@ extension HomeViewController: FilterdViewDelegate {
 
 // MARK: - FilterdViewDelegate
 extension HomeViewController: SearchViewDelegate {
-    func textFieldDidBeginEditing() {        
+    func textFieldDidBeginEditing() {
         buttonView.isHidden = true
         cancelButton.isHidden = false
-
+        
         if buttonView.isSelected {
             buttonView.isSelected = false
             movieGenreCollectioView.isHidden = true

@@ -15,16 +15,13 @@ class MovieGenreCollectionViewCell: UICollectionViewCell {
         label.textColor = .white
         label.clipsToBounds = true
         label.textAlignment = .center
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
-        label.setContentHuggingPriority(.required, for: .vertical)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     // MARK: Init
     override init(frame: CGRect) {
-        super.init(frame: .zero)
+        super.init(frame: .zero) 
         setupCellLabelConstraints()
     }
     
@@ -50,7 +47,12 @@ class MovieGenreCollectionViewCell: UICollectionViewCell {
     // MARK: Methods
     func configure(with genre: String) {
         genreLabel.text = genre
+        genreLabel.sizeToFit()
+        let cellWidth = genreLabel.frame.width + Constants.GenreLabel.cellWidth
+        let cellSize = CGSize(width: cellWidth, height: Constants.GenreLabel.cellHeight)
+        contentView.frame.size = cellSize
     }
+    
     
     func setupCellLabelConstraints() {
         contentView.addSubview(genreLabel)
@@ -64,6 +66,9 @@ class MovieGenreCollectionViewCell: UICollectionViewCell {
             genreLabel.bottomAnchor.constraint(
                 equalTo: contentView.bottomAnchor,
                 constant: Constants.GenreLabel.bottom),
+            genreLabel.trailingAnchor.constraint(
+                lessThanOrEqualTo: contentView.trailingAnchor,
+                constant: -12),
         ])
     }
 }

@@ -23,9 +23,10 @@ final class SearchView: UIView {
     
     private lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = Constants.TextField.text
-        textField.font = Constants.TextField.fontSize
-        textField.textColor = Constants.TextField.textColor
+        textField.setPlaceholder(
+            with: Constants.TextField.text,
+            color: Constants.TextField.textColor,
+            font: Constants.TextField.fontSize)
         textField.delegate = self
         return textField
     }()
@@ -48,7 +49,6 @@ final class SearchView: UIView {
     // MARK: Methods
     func clearSearchText() {
         textField.text = ""
-        textField.resignFirstResponder()
     }
     
     private func setUp() {
@@ -94,13 +94,13 @@ final class SearchView: UIView {
 // MARK: - SearchViewDelegate
 extension SearchView: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-          delegate?.textFieldDidBeginEditing()
-        
-      }
-
-      func textFieldDidEndEditing(_ textField: UITextField) {
-          textField.text = ""
-          delegate?.textFieldDidEndEditing()
-      }
+        delegate?.textFieldDidBeginEditing()
+        textField.textColor = .white
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.text = ""
+        delegate?.textFieldDidEndEditing()
+    }
 }
 

@@ -46,10 +46,11 @@ extension MoviesCollectionViewCell {
                 green: 0.7725,
                 blue: 0.0941,
                 alpha: 1.0)
-            static let cornnerRadius: CGFloat = 12
+            static let cornnerRadius: CGFloat = 10
             static let top: CGFloat = 10
             static let trailing: CGFloat = -10
-            static let width: CGFloat = -20
+            static let height: CGFloat = 21
+            //static let width: CGFloat = 20
         }
     }
 }

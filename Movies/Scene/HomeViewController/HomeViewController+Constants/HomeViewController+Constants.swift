@@ -17,11 +17,16 @@ extension HomeViewController {
             static let height: CGFloat = 36
             static let cornerRadius: CGFloat = 16
             static let trailing: CGFloat = -8
+//            static let backGroundColor = UIColor(
+//                red: 0.1098,
+//                green: 0.1098,
+//                blue: 0.1098,
+//                alpha: 1.0)
             static let backGroundColor = UIColor(
-                red: 0.1098,
-                green: 0.1098,
-                blue: 0.1098,
-                alpha: 1.0)
+                red: 28/255,
+                green: 28/255,
+                blue: 28/255,
+                alpha: 1)
         }
         
         enum ButtonView {
@@ -65,9 +70,10 @@ extension HomeViewController {
         enum MovieGenreCollectionView {
             static let cellGenre = "MovieGenreCollectionViewCell"
             static let top: CGFloat = 8
-            static let leading: CGFloat = 20
             static let height: CGFloat = 30
-            
+            static let leading: CGFloat = 12
+            static let trailing: CGFloat = 24
+
         }
         
         enum CancelButton {
