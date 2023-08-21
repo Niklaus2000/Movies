@@ -37,9 +37,7 @@ class HomeViewController: UIViewController {
         view.isScrollEnabled = true
         view.backgroundColor = .clear
         view.layer.borderColor = UIColor.white.cgColor
-        view.register(
-            MovieGenreCollectionViewCell.self,
-            forCellWithReuseIdentifier: Constants.MovieGenreCollectionView.cellGenre)
+        view.register(MovieGenreCollectionViewCell.self)
         return view
     }()
     
@@ -67,9 +65,7 @@ class HomeViewController: UIViewController {
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.isScrollEnabled = true
         view.backgroundColor = .clear
-        view.register(
-            MoviesCollectionViewCell.self,
-            forCellWithReuseIdentifier: Constants.MovieCollectionView.cellMovie)
+        view.register(MoviesCollectionViewCell.self)
         return view
     }()
     
@@ -222,43 +218,44 @@ class HomeViewController: UIViewController {
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
-extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+
+extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, Reusable {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == movieGenreCollectioView {
+        switch collectionView {
+        case movieGenreCollectioView:
             return genres.count
-        } else if collectionView == moviesCollectionView {
+        case moviesCollectionView:
             return selectedGenre != nil ? filteredMovies.count : movies.count
+        default:
+            return 0
         }
-        return 0
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == self.movieGenreCollectioView {
-            let movieGenreCollectionViewCell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: Constants.MovieGenreCollectionView.cellGenre,
-                for: indexPath) as! MovieGenreCollectionViewCell
+        switch collectionView {
+        case movieGenreCollectioView:
+            let movieGenreCollectionViewCell: MovieGenreCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
             let genre = genres[indexPath.row]
             movieGenreCollectionViewCell.configure(with: genre)
-            
-            
             movieGenreCollectionViewCell.isCellSelected = genre == selectedGenre
-            
             return movieGenreCollectionViewCell
-        } else if collectionView == self.moviesCollectionView {
-            let moviesCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.MovieCollectionView.cellMovie, for: indexPath) as! MoviesCollectionViewCell
             
+        case moviesCollectionView:
+            let moviesCollectionViewCell: MoviesCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
             let movie = selectedGenre != nil ? filteredMovies[indexPath.row] : movies[indexPath.row]
             moviesCollectionViewCell.configure(with: movie)
-            
             return moviesCollectionViewCell
+            
+        default:
+            return UICollectionViewCell()
         }
-        return UICollectionViewCell()
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == movieGenreCollectioView {
             let selectedGenre = genres[indexPath.row]
-            
             
             if let cell = collectionView.cellForItem(at: indexPath) as? MovieGenreCollectionViewCell {
                 cell.isCellSelected.toggle()
@@ -276,11 +273,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             collectionView.reloadData()
         }
         
-        
         if collectionView == moviesCollectionView {
-            guard collectionView.cellForItem(at: indexPath) is MoviesCollectionViewCell else {
-                return
+            guard collectionView.cellForItem(at: indexPath) is MoviesCollectionViewCell else { return
             }
+            
             let vc = MovieDetailsViewController()
             vc.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(vc, animated: true)
@@ -288,7 +284,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     private func filterMoviesByGenre() {
-        if let selectedGenre = self.selectedGenre {
+        if let selectedGenre = selectedGenre {
             self.filteredMovies = movies.filter { $0.genre.lowercased() == selectedGenre.lowercased() }
         } else {
             self.filteredMovies = movies
@@ -297,15 +293,13 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
 }
 
-
-
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch collectionView {
         case movieGenreCollectioView:
-            let genres = genres[indexPath.row]
+            let genre = genres[indexPath.row]
             let cell = MovieGenreCollectionViewCell()
-            cell.configure(with: genres)
+            cell.configure(with: genre)
             return cell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         case moviesCollectionView:
             return CGSize(
@@ -316,8 +310,6 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         }
     }
 }
-
-
 
 // MARK: - FilterdViewDelegate
 extension HomeViewController: FilterdViewDelegate {
@@ -351,13 +343,3 @@ extension HomeViewController: SearchViewDelegate {
         cancelButton.isHidden = true
     }
 }
-
-
-
-
-
-
-
-
-
-

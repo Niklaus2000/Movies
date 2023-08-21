@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class FavoriteViewController: UIViewController {
     
     // MARK: Components
@@ -19,12 +18,9 @@ class FavoriteViewController: UIViewController {
             collectionViewLayout: layout)
         view.isScrollEnabled = true
         view.backgroundColor = .clear
-        view.register(
-            FavoriteCollectionViewCell.self,
-            forCellWithReuseIdentifier: Constants.MoviesCollectionView.cell)
+        view.register(FavoriteCollectionViewCell.self)
         view.delegate = self
         view.dataSource = self
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -155,14 +151,17 @@ class FavoriteViewController: UIViewController {
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
-extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension FavoriteViewController:
+    UICollectionViewDelegate,
+    UICollectionViewDataSource,
+    UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         movies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.MoviesCollectionView.cell, for: indexPath) as! FavoriteCollectionViewCell
-        
+        let cell: FavoriteCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
         let movie = movies[indexPath.row]
         cell.configure(with: movie)
         

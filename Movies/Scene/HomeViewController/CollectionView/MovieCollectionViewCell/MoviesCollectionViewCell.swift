@@ -10,7 +10,7 @@ import Foundation
 
 import UIKit
 
-class MoviesCollectionViewCell: UICollectionViewCell {
+class MoviesCollectionViewCell: UICollectionViewCell, Reusable {
     
     // MARK: Components
     private let moviePoster: UIImageView = {

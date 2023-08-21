@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FavoriteCollectionViewCell: UICollectionViewCell {
+class FavoriteCollectionViewCell: UICollectionViewCell, Reusable {
     
     private let moviePoster: UIImageView = {
         let image = UIImageView()

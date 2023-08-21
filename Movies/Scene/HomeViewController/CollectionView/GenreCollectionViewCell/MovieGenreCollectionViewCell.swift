@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MovieGenreCollectionViewCell: UICollectionViewCell {
+class MovieGenreCollectionViewCell: UICollectionViewCell, Reusable {
     
     // MARK: Components
     private let genreLabel: UILabel = {

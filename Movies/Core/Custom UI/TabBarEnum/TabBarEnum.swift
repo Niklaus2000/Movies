@@ -23,7 +23,6 @@ enum TabBarEnum {
     var image: UIImage? {
         switch self {
         case .home:
-            //return Constants.TabBarItems.homeUnselected
             return Constants.TabBarItems.homeUnselected?.withRenderingMode(.alwaysOriginal)
         case .favorites:
             return Constants.TabBarItems.favoritesUnselected?.withRenderingMode(.alwaysOriginal)
