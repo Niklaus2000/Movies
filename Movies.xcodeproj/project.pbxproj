@@ -112,15 +112,13 @@
 		90315A652A8B74FA00D2258D /* Movies */ = {
 			isa = PBXGroup;
 			children = (
-				908981F92A93845E002D1F6A /* Coordinators */,
+				90ECF4DB2A94B876006E8EC4 /* Supporting Files */,
+				90ECF4DA2A94B839006E8EC4 /* Resources */,
 				904DC9892A8B78F900115DCC /* Core */,
 				904DC9702A8B78F800115DCC /* Scene */,
 				904DC9BD2A8B796500115DCC /* App */,
-				90315A722A8B74FD00D2258D /* Assets.xcassets */,
-				90315A742A8B74FD00D2258D /* LaunchScreen.storyboard */,
 				904DC9A52A8B78F900115DCC /* README.md */,
 				90315A772A8B74FD00D2258D /* Info.plist */,
-				90315A6F2A8B74FB00D2258D /* Movies.xcdatamodeld */,
 			);
 			path = Movies;
 			sourceTree = "<group>";
@@ -128,6 +126,7 @@
 		904DC9702A8B78F800115DCC /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				90734A562A94B9E600EEE224 /* Launch */,
 				904DC9C02A8B802F00115DCC /* MovieDetailsController */,
 				904DC9712A8B78F800115DCC /* FavoriteViewController */,
 				904DC97A2A8B78F800115DCC /* HomeViewController */,
@@ -243,6 +242,7 @@
 		904DC9892A8B78F900115DCC /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				90734A572A94BA5500EEE224 /* CoreData */,
 				904DC98A2A8B78F900115DCC /* Extension */,
 				904DC98D2A8B78F900115DCC /* Custom UI */,
 				904DC9A12A8B78F900115DCC /* Model */,
@@ -408,6 +408,22 @@
 			path = "MovieDetailsViewController+Constants";
 			sourceTree = "<group>";
 		};
+		90734A562A94B9E600EEE224 /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				90315A742A8B74FD00D2258D /* LaunchScreen.storyboard */,
+			);
+			path = Launch;
+			sourceTree = "<group>";
+		};
+		90734A572A94BA5500EEE224 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				90315A6F2A8B74FB00D2258D /* Movies.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		908981EE2A8FB03D002D1F6A /* HideKeyBoard+Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -432,11 +448,19 @@
 			path = "UICollectionView+Extension";
 			sourceTree = "<group>";
 		};
-		908981F92A93845E002D1F6A /* Coordinators */ = {
+		90ECF4DA2A94B839006E8EC4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				90315A722A8B74FD00D2258D /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		90ECF4DB2A94B876006E8EC4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Coordinators;
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

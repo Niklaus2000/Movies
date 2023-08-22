@@ -50,7 +50,6 @@ extension MoviesCollectionViewCell {
             static let top: CGFloat = 10
             static let trailing: CGFloat = -10
             static let height: CGFloat = 21
-            //static let width: CGFloat = 20
         }
     }
 }

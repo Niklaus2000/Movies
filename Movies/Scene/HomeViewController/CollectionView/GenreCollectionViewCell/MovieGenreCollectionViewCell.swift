@@ -68,7 +68,7 @@ class MovieGenreCollectionViewCell: UICollectionViewCell, Reusable {
                 constant: Constants.GenreLabel.bottom),
             genreLabel.trailingAnchor.constraint(
                 lessThanOrEqualTo: contentView.trailingAnchor,
-                constant: -12),
+                constant: Constants.GenreLabel.trailing),
         ])
     }
 }

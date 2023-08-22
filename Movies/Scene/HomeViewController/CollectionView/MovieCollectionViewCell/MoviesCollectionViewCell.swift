@@ -195,7 +195,7 @@ class MoviesCollectionViewCell: UICollectionViewCell, Reusable {
                 equalTo: contentView.trailingAnchor,
                 constant: Constants.GenreLabelContainerView.trailing),
             genreLabelContainerView.heightAnchor.constraint(
-                greaterThanOrEqualToConstant: 21),
+                greaterThanOrEqualToConstant: Constants.GenreLabelContainerView.height),
             
         ])
     }
