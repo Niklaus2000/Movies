@@ -41,6 +41,7 @@
 		908981F02A8FB131002D1F6A /* HideKeyBoard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908981EF2A8FB131002D1F6A /* HideKeyBoard+Extension.swift */; };
 		908981F32A8FC1D2002D1F6A /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908981F22A8FC1D2002D1F6A /* UITextField+Extension.swift */; };
 		908981F62A90B307002D1F6A /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908981F52A90B307002D1F6A /* UICollectionView+Extension.swift */; };
+		90A383722B8DF373001FAAED /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A383712B8DF373001FAAED /* MainCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +81,7 @@
 		908981EF2A8FB131002D1F6A /* HideKeyBoard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HideKeyBoard+Extension.swift"; sourceTree = "<group>"; };
 		908981F22A8FC1D2002D1F6A /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		908981F52A90B307002D1F6A /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
+		90A383712B8DF373001FAAED /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,13 +114,11 @@
 		90315A652A8B74FA00D2258D /* Movies */ = {
 			isa = PBXGroup;
 			children = (
-				90ECF4DB2A94B876006E8EC4 /* Supporting Files */,
-				90ECF4DA2A94B839006E8EC4 /* Resources */,
-				904DC9892A8B78F900115DCC /* Core */,
 				904DC9702A8B78F800115DCC /* Scene */,
+				904DC9892A8B78F900115DCC /* Core */,
 				904DC9BD2A8B796500115DCC /* App */,
-				904DC9A52A8B78F900115DCC /* README.md */,
-				90315A772A8B74FD00D2258D /* Info.plist */,
+				90ECF4DA2A94B839006E8EC4 /* Resources */,
+				90A3836F2B8DECF8001FAAED /* SystemFiles */,
 			);
 			path = Movies;
 			sourceTree = "<group>";
@@ -242,6 +242,7 @@
 		904DC9892A8B78F900115DCC /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				90A383702B8DF350001FAAED /* Coordinator */,
 				90734A572A94BA5500EEE224 /* CoreData */,
 				904DC98A2A8B78F900115DCC /* Extension */,
 				904DC98D2A8B78F900115DCC /* Custom UI */,
@@ -448,19 +449,29 @@
 			path = "UICollectionView+Extension";
 			sourceTree = "<group>";
 		};
+		90A3836F2B8DECF8001FAAED /* SystemFiles */ = {
+			isa = PBXGroup;
+			children = (
+				904DC9A52A8B78F900115DCC /* README.md */,
+				90315A772A8B74FD00D2258D /* Info.plist */,
+			);
+			path = SystemFiles;
+			sourceTree = "<group>";
+		};
+		90A383702B8DF350001FAAED /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				90A383712B8DF373001FAAED /* MainCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
 		90ECF4DA2A94B839006E8EC4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				90315A722A8B74FD00D2258D /* Assets.xcassets */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		90ECF4DB2A94B876006E8EC4 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -559,6 +570,7 @@
 				904DC9C32A8B805000115DCC /* MovieDetailsViewController+Constants.swift in Sources */,
 				904DC9B12A8B78F900115DCC /* SearchView.swift in Sources */,
 				904DC9A62A8B78F900115DCC /* FavoriteViewController.swift in Sources */,
+				90A383722B8DF373001FAAED /* MainCoordinator.swift in Sources */,
 				904DC9B62A8B78F900115DCC /* EmptyViewStates+Constants.swift in Sources */,
 				904DC9AE2A8B78F900115DCC /* HomeViewController.swift in Sources */,
 				904DC9AB2A8B78F900115DCC /* MovieCollectionViewCell+Constants.swift in Sources */,
@@ -704,7 +716,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Movies/Info.plist;
+				INFOPLIST_FILE = Movies/SystemFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -730,7 +742,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Movies/Info.plist;
+				INFOPLIST_FILE = Movies/SystemFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
