@@ -9,6 +9,8 @@ import UIKit
 
 class FavoriteViewController: UIViewController {
     
+    private var coordinator: MainCoordinator?
+    
     // MARK: Components
     private lazy var moviesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -60,12 +62,15 @@ class FavoriteViewController: UIViewController {
         
     }
     
-    //    private func setUp() {
-    //        [moviesCollectionView, errorStateView, emptyStateView, loadingImage].forEach {
-    //            $0.translatesAutoresizingMaskIntoConstraints = false
-    //            view.addSubview($0)
-    //        }
-    //    }
+    // MARK: Init
+    init(coordinator: MainCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: Methods
     private func setUp() {

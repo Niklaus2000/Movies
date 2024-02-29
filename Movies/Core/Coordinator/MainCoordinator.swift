@@ -10,6 +10,7 @@ import UIKit
 
 class MainCoordinator {
     private let navigationViewController: UINavigationController
+    var tabBarCases: [TabBarEnum] { return [.home(self), .favorites(self)] }
     
     init(navigationViewController: UINavigationController) {
         self.navigationViewController = navigationViewController
@@ -31,8 +32,16 @@ class MainCoordinator {
         }
     }
     
-    var tabBarCases: [TabBarEnum] {
-        return [.home, .favorites]
+    func fromHomeViewControllerToMovieDetailViewController() {
+        let vc = MovieDetailsViewController()
+        vc.hidesBottomBarWhenPushed = true
+        navigationViewController.pushViewController(vc, animated: true)
+    }
+    
+    func fromFavoriteControllerToMovieDetailViewController() {
+        let vc = MovieDetailsViewController()
+        vc.hidesBottomBarWhenPushed = true
+        navigationViewController.pushViewController(vc, animated: true)
     }
 }
 
