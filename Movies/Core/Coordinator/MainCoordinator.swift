@@ -8,29 +8,20 @@
 
 import UIKit
 
-//class MainCoordinator {
-//    private var navigationController: UINavigationController
-//
-//    init(navigationController: UINavigationController) {
-//        self.navigationController = navigationController
-//    }
-//
-//    func start() {
-//        let tabBarViewController = TabBarViewController(coordinator: self)
-//        navigationController.pushViewController(tabBarViewController, animated: true)
-//    }
-//
-//}
-
 class MainCoordinator {
-
-    let tabBarCases: [TabBarEnum]
-
-    init(tabBarCases: [TabBarEnum]) {
-        self.tabBarCases = tabBarCases
+    private let navigationViewController: UINavigationController
+    
+    init(navigationViewController: UINavigationController) {
+        self.navigationViewController = navigationViewController
     }
-
-    var viewControllers: [UIViewController] {
+    
+    func start() {
+        let tabBarViewController = TabBarViewController(coordinator: self)
+        navigationViewController.setViewControllers([tabBarViewController], animated: false)
+        tabBarViewController.setUpTabBar()
+    }
+    
+    func tabBarViewControllers() -> [UIViewController] {
         return tabBarCases.map { controller in
             let viewController = controller.viewController
             let navController = UINavigationController(rootViewController: viewController)
@@ -38,6 +29,10 @@ class MainCoordinator {
             navController.navigationBar.barStyle = .black
             return navController
         }
+    }
+    
+    var tabBarCases: [TabBarEnum] {
+        return [.home, .favorites]
     }
 }
 

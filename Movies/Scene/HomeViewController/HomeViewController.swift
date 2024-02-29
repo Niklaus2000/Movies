@@ -14,6 +14,7 @@ class HomeViewController: UIViewController {
     private var selectedGenre: String?
     private var lastSelectedGenre: String? = nil
     private var titleLabelTopConstraint: NSLayoutConstraint?
+   // var coordinator: MainCoordinator?
     
     // MARK: Components
     private lazy var searchView: SearchView = {
@@ -77,6 +78,17 @@ class HomeViewController: UIViewController {
         setUpDevaultValues()
         hideKeyboard()
     }
+    
+    
+    // MARK: Init
+//    init(coordinator: MainCoordinator) {
+//        self.coordinator = coordinator
+//        super.init(nibName: nil, bundle: nil)
+//    }
+    
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     // MARK: Methods
     private func setUp() {
@@ -280,6 +292,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let vc = MovieDetailsViewController()
             vc.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(vc, animated: true)
+            
         }
     }
     
