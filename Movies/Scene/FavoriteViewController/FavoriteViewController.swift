@@ -162,13 +162,14 @@ extension FavoriteViewController:
     UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        movies.count
+        //movies.count
+          return 20
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: FavoriteCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
-        let movie = movies[indexPath.row]
-        cell.configure(with: movie)
+       // let movie = movies[indexPath.row]
+       // cell.configure(with: movie)
         
         return cell
     }

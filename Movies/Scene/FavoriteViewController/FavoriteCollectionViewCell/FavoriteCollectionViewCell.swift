@@ -99,10 +99,10 @@ class FavoriteCollectionViewCell: UICollectionViewCell, Reusable {
     }
     
     func configure(with movie: Movie) {
-        moviePoster.image = UIImage(named: movie.poster)
-        movieNameLabel.text = movie.name
-        movieGenreLabel.text = movie.genre
-        movieYearLabel.text = String(movie.year)
+//        moviePoster.image = UIImage(named: movie.poster)
+//        movieNameLabel.text = movie.name
+//        movieGenreLabel.text = movie.genre
+//        movieYearLabel.text = String(movie.year)
     }
     
     // MARK: Constraint

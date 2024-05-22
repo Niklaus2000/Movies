@@ -23,7 +23,7 @@ extension MoviesCollectionViewCell {
         
         enum MovieNameLabel {
             static let textSize = UIFont.systemFont(ofSize: 14)
-            static let top: CGFloat = 4
+            static let top: CGFloat = 15
             static let leading: CGFloat = 6
         }
         

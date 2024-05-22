@@ -24,7 +24,7 @@ class MovieDetailsViewController: UIViewController {
             state: .normal)
     }()
     
-    private lazy var movieTitle: UIView = {
+    private lazy var movieTitle: UILabel = {
         makeLabel(
             text: Constants.MovieTitle.text,
             textFont: Constants.MovieTitle.textFont,
@@ -48,7 +48,7 @@ class MovieDetailsViewController: UIViewController {
         return button
     }()
     
-    private lazy var ratingLabel: UIView = {
+    private lazy var ratingLabel: UILabel = {
         makeLabel(
             text: Constants.RatingLabel.text,
             textFont: Constants.RatingLabel.textFont,
@@ -62,7 +62,7 @@ class MovieDetailsViewController: UIViewController {
         )
     }()
     
-    private lazy var genreLabel: UIView = {
+    private lazy var genreLabel: UILabel = {
         makeLabel(
             text: Constants.GenreLabel.text,
             textFont: Constants.GenreLabel.textFont,
@@ -76,7 +76,7 @@ class MovieDetailsViewController: UIViewController {
         )
     }()
     
-    private lazy var movieDurationLabel: UIView = {
+    private lazy var movieDurationLabel: UILabel = {
         makeLabel(
             text: Constants.MovieDurationLabel.text,
             textFont: Constants.MovieDurationLabel.textFont,
@@ -90,7 +90,7 @@ class MovieDetailsViewController: UIViewController {
         )
     }()
     
-    private lazy var movieYearLabel: UIView = {
+    private lazy var movieYearLabel: UILabel = {
         makeLabel(
             text: Constants.MovieYearLabel.text,
             textFont: Constants.MovieYearLabel.textFont,
@@ -104,7 +104,7 @@ class MovieDetailsViewController: UIViewController {
         )
     }()
     
-    private lazy var aboutMovieLabel: UIView = {
+    private lazy var aboutMovieLabel: UILabel = {
         makeLabel(
             text: Constants.AboutMovieLabel.text,
             textFont: Constants.AboutMovieLabel.textFont,
@@ -115,7 +115,7 @@ class MovieDetailsViewController: UIViewController {
             numberOfLines: Constants.AboutMovieLabel.numberOfLines, maskBounds: true)
     }()
     
-    private lazy var descriptionLabel: UIView = {
+    private lazy var descriptionLabel: UILabel = {
         makeLabel(
             text: Constants.DescriptionLabel.text,
             textFont: Constants.DescriptionLabel.textFont,
@@ -162,11 +162,11 @@ class MovieDetailsViewController: UIViewController {
         numberOfLines: Int,
         maskBounds: Bool,
         padding: UIEdgeInsets = .zero
-    ) -> UIView {
-        let labelContainer = UIView()
-        labelContainer.backgroundColor = backGroundColor
-        labelContainer.layer.cornerRadius = cornerRadius
-        labelContainer.layer.masksToBounds = maskBounds
+    ) -> UILabel {
+        //        let labelContainer = UIView()
+        //        labelContainer.backgroundColor = backGroundColor
+        //        labelContainer.layer.cornerRadius = cornerRadius
+        //        labelContainer.layer.masksToBounds = maskBounds
         
         let label = UILabel()
         label.text = text
@@ -174,28 +174,28 @@ class MovieDetailsViewController: UIViewController {
         label.textColor = textColor
         label.textAlignment = textAlignment
         label.numberOfLines = numberOfLines
+        //
+        //        labelContainer.addSubview(label)
+        //        label.translatesAutoresizingMaskIntoConstraints = false
+        //
+        //        NSLayoutConstraint.activate([
+        //            label.topAnchor.constraint(
+        //                equalTo: labelContainer.topAnchor,
+        //                constant: padding.top),
+        //            label.leadingAnchor.constraint(
+        //                equalTo: labelContainer.leadingAnchor,
+        //                constant: padding.left),
+        //            label.bottomAnchor.constraint(
+        //                equalTo: labelContainer.bottomAnchor,
+        //                constant: -padding.bottom),
+        //            label.trailingAnchor.constraint(
+        //                equalTo: labelContainer.trailingAnchor,
+        //                constant: -padding.right)
         
-        labelContainer.addSubview(label)
-        label.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([
-            label.topAnchor.constraint(
-                equalTo: labelContainer.topAnchor,
-                constant: padding.top),
-            label.leadingAnchor.constraint(
-                equalTo: labelContainer.leadingAnchor,
-                constant: padding.left),
-            label.bottomAnchor.constraint(
-                equalTo: labelContainer.bottomAnchor,
-                constant: -padding.bottom),
-            label.trailingAnchor.constraint(
-                equalTo: labelContainer.trailingAnchor,
-                constant: -padding.right)
-        ])
-        
-        return labelContainer
+        return label
     }
-
+    
     
     private func makeButton(
         contentmode: UIView.ContentMode,
@@ -376,6 +376,15 @@ class MovieDetailsViewController: UIViewController {
             stackView.heightAnchor.constraint(
                 equalToConstant: Constants.StackView.height)
         ])
+    }
+    
+    
+    func configure(with movie: Movie) {
+        moviePoster.loadImageFromURL(urlPath: movie.backdropPath)
+        movieTitle.text = movie.title
+        descriptionLabel.text = movie.overview
+        movieYearLabel.text = movie.releaseDate
+        genreLabel.text = movie.genreNames.first ?? "" 
     }
 }
 

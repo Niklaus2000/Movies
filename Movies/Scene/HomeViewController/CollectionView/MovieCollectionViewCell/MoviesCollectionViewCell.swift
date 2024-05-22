@@ -61,6 +61,10 @@ class MoviesCollectionViewCell: UICollectionViewCell, Reusable {
         setUpFunc()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -70,7 +74,6 @@ class MoviesCollectionViewCell: UICollectionViewCell, Reusable {
         textFont: UIFont,
         textColor: UIColor,
         backGroundColor: UIColor
-        
     )
     -> UILabel {
         let label = UILabel()
@@ -108,10 +111,11 @@ class MoviesCollectionViewCell: UICollectionViewCell, Reusable {
     }
     
     func configure(with movie: Movie) {
-        moviePoster.image = UIImage(named: movie.poster)
-        movieNameLabel.text = movie.name
-        movieGenreLabel.text = movie.genre
-        movieYearLabel.text = String(movie.year)
+        moviePoster.loadImageFromURL(urlPath: movie.posterPath)
+        movieNameLabel.text = movie.title
+        movieYearLabel.text = movie.releaseDate
+        movieGenreLabel.text = movie.genreNames.first ?? ""
+       
     }
     
     @objc private func favoriteButtonTap() {

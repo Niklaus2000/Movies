@@ -15,6 +15,8 @@ class HomeViewController: UIViewController {
     private var lastSelectedGenre: String? = nil
     private var titleLabelTopConstraint: NSLayoutConstraint?
     var coordinator: MainCoordinator?
+    let viewModel: HomeViewModel
+    
     
     // MARK: Components
     private lazy var searchView: SearchView = {
@@ -39,6 +41,8 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .clear
         view.layer.borderColor = UIColor.white.cgColor
         view.register(MovieGenreCollectionViewCell.self)
+        //view.delegate = self
+        //view.dataSource = self
         return view
     }()
     
@@ -67,6 +71,8 @@ class HomeViewController: UIViewController {
         view.isScrollEnabled = true
         view.backgroundColor = .clear
         view.register(MoviesCollectionViewCell.self)
+//        view.dataSource = self
+//        view.delegate = self
         return view
     }()
     
@@ -77,12 +83,15 @@ class HomeViewController: UIViewController {
         setUpFunc()
         setUpDevaultValues()
         hideKeyboard()
+        bindViewModelMovies()
+        bindViewModelGenres()
     }
     
     
     // MARK: Init
-    init(coordinator: MainCoordinator) {
+    init(coordinator: MainCoordinator, viewModel: HomeViewModel) {
         self.coordinator = coordinator
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -103,13 +112,13 @@ class HomeViewController: UIViewController {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
-        [
-            movieGenreCollectioView,
-            moviesCollectionView
-        ].forEach {
-            $0.delegate = self
-            $0.dataSource = self
-        }
+                [
+                    movieGenreCollectioView,
+                    moviesCollectionView
+                ].forEach {
+                    $0.delegate = self
+                    $0.dataSource = self
+                }
     }
     
     private func setUpFunc() {
@@ -131,6 +140,33 @@ class HomeViewController: UIViewController {
         buttonView.isHidden = false
         cancelButton.isHidden = true
         searchView.clearSearchText()
+    }
+    
+    
+    private func bindViewModelMovies() {
+        viewModel.fetchData {
+            DispatchQueue.main.async { [weak self] in
+                self?.moviesCollectionView.reloadData()
+            }
+        }
+//        viewModel.fetchMovies { _ in
+//            DispatchQueue.main.async {
+//                self.moviesCollectionView.reloadData()
+//            }
+//        }
+    }
+    
+    private func bindViewModelGenres() {
+        viewModel.fetchGenres {
+            DispatchQueue.main.async { [weak self] in
+                self?.movieGenreCollectioView.reloadData()
+            }
+        }
+//        viewModel.fetchMovies { _ in
+//            DispatchQueue.main.async {
+//                self.moviesCollectionView.reloadData()
+//            }
+//        }
     }
     
     // MARK: Contraints
@@ -232,12 +268,13 @@ class HomeViewController: UIViewController {
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, Reusable {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case movieGenreCollectioView:
-            return genres.count
+            return viewModel.arrayOfGenres.count
         case moviesCollectionView:
-            return selectedGenre != nil ? filteredMovies.count : movies.count
+            return viewModel.numberOfitemsMovies()
         default:
             return 0
         }
@@ -248,14 +285,14 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         switch collectionView {
         case movieGenreCollectioView:
             let movieGenreCollectionViewCell: MovieGenreCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
-            let genre = genres[indexPath.row]
+            let genre = viewModel.arrayOfGenres[indexPath.row]
             movieGenreCollectionViewCell.configure(with: genre)
-            movieGenreCollectionViewCell.isCellSelected = genre == selectedGenre
+            movieGenreCollectionViewCell.isCellSelected = genre.name == selectedGenre
             return movieGenreCollectionViewCell
             
         case moviesCollectionView:
             let moviesCollectionViewCell: MoviesCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
-            let movie = selectedGenre != nil ? filteredMovies[indexPath.row] : movies[indexPath.row]
+            let movie = viewModel.arrayOfList[indexPath.row]
             moviesCollectionViewCell.configure(with: movie)
             return moviesCollectionViewCell
             
@@ -267,47 +304,54 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == movieGenreCollectioView {
-            let selectedGenre = genres[indexPath.row]
-            
+            let selectedGenre = viewModel.arrayOfGenres[indexPath.row]
+
             if let cell = collectionView.cellForItem(at: indexPath) as? MovieGenreCollectionViewCell {
                 cell.isCellSelected.toggle()
             }
-            
-            if self.lastSelectedGenre != selectedGenre {
-                self.lastSelectedGenre = selectedGenre
-                self.selectedGenre = selectedGenre
+
+            if self.lastSelectedGenre != selectedGenre.name {
+                self.lastSelectedGenre = selectedGenre.name
+                self.selectedGenre = selectedGenre.name
             } else {
                 self.lastSelectedGenre = nil
                 self.selectedGenre = nil
             }
-            
-            filterMoviesByGenre()
+
+            //filterMoviesByGenre()
             collectionView.reloadData()
         }
         
         if collectionView == moviesCollectionView {
-            guard collectionView.cellForItem(at: indexPath) is MoviesCollectionViewCell else { return
-            }
-            
-            coordinator?.fromHomeViewControllerToMovieDetailViewController()
+            let movies = viewModel.arrayOfList[indexPath.row]
+            coordinator?.fromHomeViewControllerToMovieDetailViewController(with: movies, id: movies.id)
         }
     }
     
-    private func filterMoviesByGenre() {
-        if let selectedGenre = selectedGenre {
-            self.filteredMovies = movies.filter { $0.genre.lowercased() == selectedGenre.lowercased() }
-        } else {
-            self.filteredMovies = movies
-        }
-        moviesCollectionView.reloadData()
-    }
+//        private func filterMoviesByGenre() {
+//            if let selectedGenre = selectedGenre {
+//                self.filteredMovies = viewModel.arrayOfList.filter { $0.genres?.name  == selectedGenre.lowercased() }
+//            } else {
+//                self.filteredMovies = viewModel.arrayOfList
+//            }
+//            moviesCollectionView.reloadData()
+//        }
+    
+//    private func filterMoviesByGenre() {
+//        if let selectedGenre = selectedGenre {
+//            self.filteredMovies = movies.filter { $0.genre.lowercased() == selectedGenre.lowercased() }
+//        } else {
+//            self.filteredMovies = movies
+//        }
+//    }
+    
 }
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch collectionView {
         case movieGenreCollectioView:
-            let genre = genres[indexPath.row]
+            let genre = viewModel.arrayOfGenres[indexPath.row]
             let cell = MovieGenreCollectionViewCell()
             cell.configure(with: genre)
             return cell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)

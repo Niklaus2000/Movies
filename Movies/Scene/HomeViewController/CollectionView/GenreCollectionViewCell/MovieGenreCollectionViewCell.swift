@@ -45,8 +45,8 @@ class MovieGenreCollectionViewCell: UICollectionViewCell, Reusable {
     }
     
     // MARK: Methods
-    func configure(with genre: String) {
-        genreLabel.text = genre
+    func configure(with genre: Genre) {
+        genreLabel.text = genre.name
         genreLabel.sizeToFit()
         let cellWidth = genreLabel.frame.width + Constants.GenreLabel.cellWidth
         let cellSize = CGSize(width: cellWidth, height: Constants.GenreLabel.cellHeight)

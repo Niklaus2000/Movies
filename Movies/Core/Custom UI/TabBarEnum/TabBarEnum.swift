@@ -8,13 +8,14 @@
 import UIKit
 
 enum TabBarEnum {
-    case home(MainCoordinator)
+    case home(MainCoordinator, HomeViewModel)
     case favorites(MainCoordinator)
+    
     
     var viewController: UIViewController {
         switch self {
-        case .home(let coordinator):
-            return HomeViewController(coordinator: coordinator)
+        case .home(let coordinator, let viewModel):
+            return HomeViewController(coordinator: coordinator, viewModel: viewModel)
         case .favorites(let coordinator):
             return FavoriteViewController(coordinator: coordinator)
         }
