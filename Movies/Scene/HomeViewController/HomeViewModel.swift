@@ -16,20 +16,20 @@ class HomeViewModel {
     private var apiService  = ApiService()
     
     
-    //    func fetchMovies(completion: @escaping (Error?) -> Void) {
-    //        apiService.getMoviesData { (movieData, error) in
-    //            if let error = error {
-    //                completion(error)
-    //                print("error viewmodel")
-    //            }
-    //
-    //            if let movieData = movieData {
-    //                self.arrayOfList = movieData.results
-    //                print("\(movieData)")
-    //                completion(nil)
-    //            }
-    //        }
-    //    }
+//        func fetchMovies(completion: @escaping (Error?) -> Void) {
+//            apiService.getMoviesData { (movieData, error) in
+//                if let error = error {
+//                    completion(error)
+//                    print("error viewmodel")
+//                }
+//
+//                if let movieData = movieData {
+//                    self.arrayOfList = movieData.results
+//                    print("\(movieData)")
+//                    completion(nil)
+//                }
+//            }
+//        }
     
     
     
@@ -38,29 +38,33 @@ class HomeViewModel {
             self?.arrayOfList = movies
             success()
         }
+        
     }
+
     
-    func fetchGenres(success: @escaping () -> Void) {
-        apiService.fetchGenres { [weak self] genres in
-            self?.arrayOfGenres = genres
-            success()
-        }
-    }
+//    func fetchGenres(success: @escaping () -> Void) {
+//        apiService.fetchGenres { [weak self] genres in
+//            self?.arrayOfGenres = genres
+//            success()
+//        }
+//    }
     
-    func fetchSearch(with query: String) {
-        apiService.fetchSearch(query: query) { search in
-            self.arrayOfSearch = search
-        }
-    }
+//    func fetchSearch(with query: String) {
+//        apiService.fetchSearch(query: query) { search in
+//            self.arrayOfSearch = search
+//        }
+//    }
     
     func numberOfitemsMovies() -> Int {
         arrayOfList.count
     }
     
+    func numberOfItemsGenres() -> Int {
+        arrayOfGenres.count
+    }
+    
     func retriveMovie(with id: Int) -> Movie? {
-        guard let movie = arrayOfList.first(where: {$0.id == id}) else {
-            return nil
-        }
+        guard let movie = arrayOfList.first(where: {$0.id == id}) else { return nil }
         return movie
     }
     

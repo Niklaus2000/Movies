@@ -41,8 +41,6 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .clear
         view.layer.borderColor = UIColor.white.cgColor
         view.register(MovieGenreCollectionViewCell.self)
-        //view.delegate = self
-        //view.dataSource = self
         return view
     }()
     
@@ -71,8 +69,6 @@ class HomeViewController: UIViewController {
         view.isScrollEnabled = true
         view.backgroundColor = .clear
         view.register(MoviesCollectionViewCell.self)
-//        view.dataSource = self
-//        view.delegate = self
         return view
     }()
     
@@ -84,7 +80,7 @@ class HomeViewController: UIViewController {
         setUpDevaultValues()
         hideKeyboard()
         bindViewModelMovies()
-        bindViewModelGenres()
+        //bindViewModelGenres()
     }
     
     
@@ -147,19 +143,6 @@ class HomeViewController: UIViewController {
         viewModel.fetchData {
             DispatchQueue.main.async { [weak self] in
                 self?.moviesCollectionView.reloadData()
-            }
-        }
-//        viewModel.fetchMovies { _ in
-//            DispatchQueue.main.async {
-//                self.moviesCollectionView.reloadData()
-//            }
-//        }
-    }
-    
-    private func bindViewModelGenres() {
-        viewModel.fetchGenres {
-            DispatchQueue.main.async { [weak self] in
-                self?.movieGenreCollectioView.reloadData()
             }
         }
 //        viewModel.fetchMovies { _ in
@@ -328,14 +311,15 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
     }
     
-//        private func filterMoviesByGenre() {
+        //private func filterMoviesByGenre() {
 //            if let selectedGenre = selectedGenre {
 //                self.filteredMovies = viewModel.arrayOfList.filter { $0.genres?.name  == selectedGenre.lowercased() }
 //            } else {
 //                self.filteredMovies = viewModel.arrayOfList
 //            }
 //            moviesCollectionView.reloadData()
-//        }
+             
+        //}
     
 //    private func filterMoviesByGenre() {
 //        if let selectedGenre = selectedGenre {
